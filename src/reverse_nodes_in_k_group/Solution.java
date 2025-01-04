@@ -15,7 +15,9 @@ class Solution {
      }
 
     public static ListNode reverseKGroup(ListNode head, int k) {
+        System.out.print("start: ");
         printListNode(head);
+        if (head == null || head.next == null) return head;
         var list = new ArrayList<Integer>();
         var current = head;
         while (current != null) {
@@ -36,11 +38,12 @@ class Solution {
             }
         }
         head = new ListNode(list.get(0), head.next);
-        current = head.next;
+        var prev = head;
         int i = 1;
-        while (current != null) {
-            current = new ListNode(list.get(i), current.next);
-            current = current.next;
+        while (i < list.size()) {
+            current = new ListNode(list.get(i), null);
+            prev.next = current;
+            prev = current;
             i++;
         }
         return head;
@@ -49,7 +52,7 @@ class Solution {
     public static void printListNode(ListNode listNode) {
         var current = listNode;
         while (current != null) {
-            System.out.println(current.val);
+            System.out.printf("%s, ", current.val);
             current = current.next;
         }
         System.out.println();
@@ -69,6 +72,40 @@ class Solution {
         printListNode(reverseKGroup(
             new ListNode(2, new ListNode(1, new ListNode(4, new ListNode(5, new ListNode(5, null))))),
             2
+        ));
+        printListNode(reverseKGroup(
+            new ListNode(2, null),
+            2
+        ));
+        printListNode(reverseKGroup(
+            null,
+            2
+        ));
+
+        printListNode(reverseKGroup(
+            new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5, null))))),
+            4
+        ));
+        printListNode(reverseKGroup(
+            new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5, null))))),
+            5
+        ));
+        printListNode(reverseKGroup(
+            new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5, null))))),
+            6
+        ));
+
+        printListNode(reverseKGroup(
+            new ListNode(1, new ListNode(2, new ListNode(3, null))),
+            1
+        ));
+        printListNode(reverseKGroup(
+            new ListNode(1, new ListNode(2, new ListNode(3, null))),
+            2
+        ));
+        printListNode(reverseKGroup(
+            new ListNode(1, new ListNode(2, new ListNode(3, null))),
+            3
         ));
     }
 
